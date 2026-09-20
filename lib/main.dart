@@ -10,11 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Speedometer',
+      title: 'Central',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 58, 141, 183)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 81, 8, 150)),
       ),
-      home: const MyHomePage(title: 'Speedometer'),
+      home: const MyHomePage(title: 'Central'),
     );
   }
 }
@@ -30,8 +30,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  final TextEditingController _textController = TextEditingController();
   void _incrementCounter() {
+    print(_textController.text);
     setState(() {
       _counter++;
     });
@@ -57,13 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(
+              width: 250,
+              child: TextField(
+                controller: _textController,
+                decoration: InputDecoration(
+                  labelText: 'Enter something',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
-        )
+        ),
+        
   ),
 
     floatingActionButton: Row(
