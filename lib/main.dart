@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speedometer/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 81, 8, 150)),
       ),
-      home: const MyHomePage(title: 'Central'),
+      home: WelcomePage(),
     );
   }
 }
