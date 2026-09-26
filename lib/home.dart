@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 
@@ -17,17 +20,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
 
-  void register(String email, String password) {
-    print(email);
-    print(password);
-    
-    return ;
-  }
+Future<void> register(String username, String password) async {
+  final apiUrl = dotenv.env['SERVER_URL'];
 
+  final response = await http.post(
+    Uri.parse('$apiUrl/register'),
+
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({
+      'user': username,
+      'password': password,
+    }),
+  );
+  print('$apiUrl/register');
+  print('Status: ${response.statusCode}');
+  print('Response: ${response.body}');
+}
   void showTokenDialog(String token) {
     showDialog(
       context: context,
@@ -68,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _userController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -92,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               width: 250,
               child: TextField(
-                controller: _emailController,
+                controller: _userController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
@@ -122,9 +136,9 @@ class _MyHomePageState extends State<MyHomePage> {
       mainAxisSize: MainAxisSize.min,
       children: [
         FilledButton(
-          onPressed: () {
-             register(
-            _emailController.text,
+          onPressed: () async {
+            await register(
+            _userController.text,
             _passwordController.text,
           );
           showTokenDialog('sometoken');
