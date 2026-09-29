@@ -25,23 +25,55 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 Future<void> register(String username, String password) async {
-  final apiUrl = dotenv.env['SERVER_URL'];
+  try {
+    final apiUrl = dotenv.env['SERVER_URL'];
+    final response = await http.post(
+      Uri.parse('$apiUrl/register'),
 
-  final response = await http.post(
-    Uri.parse('$apiUrl/register'),
 
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: jsonEncode({
-      'user': username,
-      'password': password,
-    }),
-  );
-  print('$apiUrl/register');
-  print('Status: ${response.statusCode}');
-  print('Response: ${response.body}');
-}
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'user': username,
+        'password': password,
+      }),
+    );
+    if (!mounted) return;
+    if (response.statusCode == 200) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Registration Successful!'),
+        backgroundColor: Colors.green,
+        )
+    );
+    } else if (response.statusCode == 409) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User already exists'),
+          backgroundColor: Colors.red,
+        )
+      );
+    } else {
+      final data = jsonDecode(response.body);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registration failed with message: $data'),
+          backgroundColor: Colors.red,
+      ),);
+    }
+    print('$apiUrl/register');
+    print('Status: ${response.statusCode}');
+    print('Response: ${response.body}');
+  } catch (e) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Registration failed: $e'),
+        backgroundColor: Colors.red,
+        ));
+  }
+  }
   void showTokenDialog(String token) {
     showDialog(
       context: context,
@@ -141,7 +173,7 @@ Future<void> register(String username, String password) async {
             _userController.text,
             _passwordController.text,
           );
-          showTokenDialog('sometoken');
+          // showTokenDialog('sometoken');
           },
         child: const Text('Register'),
       ),
