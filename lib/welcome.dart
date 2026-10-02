@@ -1,4 +1,5 @@
-import 'package:central/home.dart';
+import 'package:central/mainScreen.dart';
+import 'package:central/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,7 +28,7 @@ class WelcomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const MyHomePage(
+                  MaterialPageRoute(builder: (context) => const MainScreenPage(
                     title: 'Central',
                   )),
                 );

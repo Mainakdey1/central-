@@ -1,3 +1,4 @@
+import 'package:central/mainScreen.dart';
 import 'package:central/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

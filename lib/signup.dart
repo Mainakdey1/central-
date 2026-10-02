@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,18 +9,21 @@ import 'dart:convert';
 
 
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
 
 Future<void> register(String username, String password) async {
@@ -116,59 +118,92 @@ Future<void> register(String username, String password) async {
   void dispose() {
     _userController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
+
+
+//Main UI starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: const Color.fromARGB(255, 243, 191, 202),
       ),
-
-
+    backgroundColor: const Color.fromARGB(255, 230, 208, 190),
 
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: 250,
-              child: TextField(
-                controller: _userController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 250,
+                child: TextField(
+                  controller: _userController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your username',
+                    labelText: 'username',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-              width: 250,
-            ),
-            SizedBox(
-              width: 250,
-              child: TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder()
+              SizedBox(
+                height: 10,
+                width: 250,
+              ),
+              SizedBox(
+                width: 250,
+                child: TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    hintText: 'Make a password',
+                    labelText: 'Password',
+                    border: OutlineInputBorder()
+                  ),
                 ),
               ),
-            )
-          ],
-        ),
-        
-  ),
+              SizedBox(
+                height: 10,
+                width: 250,
+              ),
+              SizedBox(
+                width: 250,
+                child: TextFormField(
+                  controller: _confirmPasswordController,
+                  decoration: InputDecoration(
+                    hintText: 'Confirm password',
+                    labelText: 'Confirm password',
+                    border: OutlineInputBorder()
+                  ),
+                  validator: (value) {
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
+          
+      ),
+      ),
 
     floatingActionButton: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         FilledButton(
           onPressed: () async {
+            if (!_formKey.currentState!.validate()){
+              return;
+            }
             await register(
             _userController.text,
             _passwordController.text,

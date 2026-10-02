@@ -1,3 +1,33 @@
 {
-    "cmake.sourceDirectory": "C:/Users/chestor/Documents/central-/central-/linux"
+    "cmake.sourceDirectory": "C:/Users/chestor/Documents/central-/central-/linux",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#17264a",
+        "activityBar.activeBorder": "#e7e7e7",
+        "activityBar.background": "#17264a",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#aa3557",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "activityBarTop.activeBackground": "#17264a",
+        "activityBarTop.activeBorder": "#e7e7e7",
+        "activityBarTop.background": "#17264a",
+        "activityBarTop.foreground": "#e7e7e7",
+        "activityBarTop.inactiveForeground": "#e7e7e799",
+        "commandCenter.border": "#e7e7e799",
+        "commandCenter.foreground": "#e7e7e7",
+        "sash.hoverBorder": "#17264a",
+        "statusBar.background": "#0b1223",
+        "statusBar.debuggingBackground": "#0b1223",
+        "statusBar.debuggingForeground": "#e7e7e7",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBar.inactiveBackground": "#0b1223",
+        "statusBarItem.hoverBackground": "#17264a",
+        "statusBarItem.remoteBackground": "#922e4b",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#0b1223",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#0b122399",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#0b1223"
 }
