@@ -55,4 +55,4 @@ app.*.map.json
 .txt
 *.txt.*
 
-*.vscode
+*.vscode.*
