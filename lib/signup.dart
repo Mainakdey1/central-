@@ -130,9 +130,9 @@ Future<void> register(String username, String password) async {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: const Color.fromARGB(255, 243, 191, 202),
+        backgroundColor: const Color.fromARGB(255, 114, 177, 228),
       ),
-    backgroundColor: const Color.fromARGB(255, 230, 208, 190),
+    backgroundColor: Colors.white,
 
       body: SizedBox(
         width: double.infinity,
