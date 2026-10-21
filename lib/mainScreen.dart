@@ -1,4 +1,5 @@
 import 'package:central/SignUp.dart';
+import 'package:central/device_qr_scanner.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenPage extends StatefulWidget{
@@ -15,11 +16,12 @@ Widget squareIconButton(
   String label,
   VoidCallback onPressed,
 ) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      SizedBox(height: 30,),
-      SizedBox(
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
         width: 70,
         height: 70,
         child: IconButton.filledTonal(
@@ -35,14 +37,16 @@ Widget squareIconButton(
         ),
       ),
       Text(label),
-    ],
+      ],
+    ),
   );
 }
 class _MainScreenPageState extends State<MainScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.2,
@@ -56,7 +60,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
           ),
 
           Padding (
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -71,9 +75,17 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     },
                   ),
                   squareIconButton(
-                    Icons.key,
-                    'Get tokens',
-                    () {}
+                    Icons.person_add_sharp,
+                    'Sign in',
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DeviceQrScannerPage(
+                            onPairDevice: pairDevice,
+                          ))
+                        );
+                    }
                   ),
                   squareIconButton(
                     Icons.folder,
@@ -92,21 +104,23 @@ class _MainScreenPageState extends State<MainScreenPage> {
           height: 20,
         ),
         const Padding(
-          padding: EdgeInsets.only(right: 350, top: 20),
-          child: Text(
-            'People',
-            style: TextStyle(
-              fontSize: 25,
-            ),
+          padding: EdgeInsets.only(left: 20, top: 20),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'People',
+              style: TextStyle(fontSize: 25,
+            ),),
           ),
           ),
-        const SizedBox(height: 15,),
+        const SizedBox(height: 10,),
 
         GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 20),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisExtent: 100,
             crossAxisCount: 4,
             crossAxisSpacing: 15,
             mainAxisSpacing: 15,
@@ -135,7 +149,8 @@ class _MainScreenPageState extends State<MainScreenPage> {
             }
         )
           
-        ]
+        ],
+      ),
       ),
       backgroundColor: const Color.fromARGB(255, 219, 228, 227),
       // drawer: Drawer(

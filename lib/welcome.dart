@@ -1,5 +1,4 @@
 import 'package:central/mainScreen.dart';
-import 'package:central/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
